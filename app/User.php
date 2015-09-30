@@ -11,9 +11,9 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 class User extends Model implements AuthenticatableContract,
-                                    AuthorizableContract,
-                                    CanResetPasswordContract
-{
+    CanResetPasswordContract
+{                                 AuthorizableContract,
+
     use Authenticatable, Authorizable, CanResetPassword;
 
     /**
@@ -21,19 +21,21 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var string
      */
-    protected $table = 'users';
-
+    protected $table = 'usuario';
+    protected $primaryKey = 'cd_usuario';
+    public $timestamps = false;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['nm_usuario', 'nm_sobrenome', 'dt_nascimento'];
+    protected $guarded = array('cd_usuario', 'nm_senha');
 
     /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = ['nm_senha', 'remember_token'];
 }
